@@ -31,9 +31,8 @@ TODO: details of extra credit
 * detail3
 
 To run both the client and server in "extra credit" mode, append `--extra-credit` 
-to both the server and client. (Remember: both!)
+to both the server and client. (_Remember: both!_)
 
     ./chatserve.py PORT --extra-credit
     ./chatclient HOST PORT --extra-credit
-
 

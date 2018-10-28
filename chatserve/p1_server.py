@@ -1,6 +1,5 @@
 import socket
 
-
 def run_server(conn, username):
     with conn:
         while True:
@@ -8,6 +7,6 @@ def run_server(conn, username):
             data = conn.recv(1024)
             if not data:
                 break
-
-            print(data)
-            conn.sendall('{0}> {1}'.format(username, data))
+            message = data.split(b'\x00', 1)[0].decode('ascii');
+            print(message)
+            conn.sendall(b'Received\n')

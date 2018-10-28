@@ -35,7 +35,7 @@ if __name__ == '__main__':
         print('Connected by: ', addr)
         
         # Run standard server or optionally extra credit server.
-        if sys.argv[2] == '--extra-credit':
+        if len(sys.argv) > 2 and sys.argv[2] == '--extra-credit':
             p1_server_ec.run_server(conn, username)
         else:
-            run_server(conn, username)
+            p1_server.run_server(conn, username)

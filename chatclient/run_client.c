@@ -15,20 +15,23 @@ void run_client(int sockfd, char * username, size_t uname_size)
 {
   char buf[MESSAGE_LENGTH];
   size_t message_max = MESSAGE_LENGTH - uname_size - 3;
-  char * message = malloc(uname_size * sizeof(char));
+  char * message = malloc(message_max * sizeof(char));
   int bytes_sent;
   
   do
   {
     // Get a line from the user to send.
+    memset(&buf, 0, sizeof(buf));
+    memset(message, 0, message_max);
+    printf("%s> ", username);
     if (getline(&message, &message_max, stdin) == -1) {
       perror("Problem getting line from user.");
       exit(1);
     }
 
     // Send the username and message to the server
-    snprintf(buf, sizeof(buf), "%s> %s\n", username, message);
-    bytes_sent = send(sockfd, message, MESSAGE_LENGTH, 0);
+    snprintf(buf, sizeof(buf), "%s> %s", username, message);
+    bytes_sent = send(sockfd, buf, MESSAGE_LENGTH, 0);
     
   } while (0);
 

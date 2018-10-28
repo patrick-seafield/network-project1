@@ -31,17 +31,22 @@ int main(int argc, char **argv)
     perror("Unable to getline: username.\n");
     exit(1);
   }
+  // Remove the \n character from the username.
+  char *pos;
+  if (( pos = strchr(username, '\n')) != NULL)
+  {
+    *pos = '\0';
+  }
   
-  // Connect to the chat server.
+  // Connect to the chat server and run the client. Optionally run the extra
+  // credit client if the flag has been passed.
   int sockfd = chatserve_connect(argv[1], argv[2]);
   if (argc == 4 && strcmp(argv[3], ec_flag) == 0)
   {
-    // Run extra credit client.
     run_client_ec(sockfd, username, uname_size);
   } 
   else 
   {
-    // Run standard project client.
     run_client(sockfd, username, uname_size);
   }
 
