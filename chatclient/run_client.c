@@ -16,11 +16,11 @@ void run_client(int sockfd, char * username, size_t uname_size)
   char buf[MESSAGE_LENGTH];
   size_t message_max = MESSAGE_LENGTH - uname_size - 3;
   char * message = malloc(message_max * sizeof(char));
-  int bytes_sent;
-  
+  int bytes_sent, bytes_recv;
+
   do
   {
-    // Get a line from the user to send.
+    // Get a line from the user to send. If it's \quit, exit the program.
     memset(&buf, 0, sizeof(buf));
     memset(message, 0, message_max);
     printf("%s> ", username);
@@ -28,12 +28,29 @@ void run_client(int sockfd, char * username, size_t uname_size)
       perror("Problem getting line from user.");
       exit(1);
     }
+    if (strncmp(message, "\\quit", 5) == 0)
+    {
+      break;
+    }
 
     // Send the username and message to the server
     snprintf(buf, sizeof(buf), "%s> %s", username, message);
     bytes_sent = send(sockfd, buf, MESSAGE_LENGTH, 0);
+
+
+    // Wait to receive a message from the server.
+    memset(&buf, 0, sizeof(buf));
+    bytes_recv = recv(sockfd, buf, MESSAGE_LENGTH, 0);
+    fwrite(buf, sizeof(buf[0]), strlen(buf), stdout);
     
-  } while (0);
+    // Check if the connection has been closed.
+    if (bytes_recv == 0)
+    {
+      break;
+    }
+
+
+  } while (1);
 
   free(message);
 }

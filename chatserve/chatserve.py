@@ -31,11 +31,15 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((host, port))
         s.listen()
-        conn, addr = s.accept()
-        print('Connected by: ', addr)
+        keepListening = True
+        while keepListening:
+            conn, addr = s.accept()
+            print('Connected by: ', addr)
         
-        # Run standard server or optionally extra credit server.
-        if len(sys.argv) > 2 and sys.argv[2] == '--extra-credit':
-            p1_server_ec.run_server(conn, username)
-        else:
-            p1_server.run_server(conn, username)
+            # Run standard server or optionally extra credit server.
+            if len(sys.argv) > 2 and sys.argv[2] == '--extra-credit':
+                keepListening = p1_server_ec.run_server(conn, username)
+            else:
+                keepListening = p1_server.run_server(conn, username)
+
+    print("Exiting...")
