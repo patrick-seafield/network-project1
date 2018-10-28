@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # Set up the socket and listen for the chatclient.
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((host, port))
-        s.listen()
+        s.listen(5)
         keepListening = True
         while keepListening:
             conn, addr = s.accept()
