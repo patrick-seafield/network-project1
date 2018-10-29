@@ -6,10 +6,6 @@
 import socket
 import sys
 import p1_server
-import p1_server_ec
-
-    # Get the server user's handle.
-# def get_username():
 
 
 # main()
@@ -35,11 +31,6 @@ if __name__ == '__main__':
         while keepListening:
             conn, addr = s.accept()
             print('Connected by: ', addr)
-        
-            # Run standard server or optionally extra credit server.
-            if len(sys.argv) > 2 and sys.argv[2] == '--extra-credit':
-                keepListening = p1_server_ec.run_server(conn, username)
-            else:
-                keepListening = p1_server.run_server(conn, username)
+            keepListening = p1_server.run_server(conn, username)
 
     print("Exiting...")

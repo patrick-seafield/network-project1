@@ -1,5 +1,5 @@
-chatclient : connect.o run_client.o run_client_ec.o
-	cc -o chatclient chatclient.c connect.o run_client.o run_client_ec.o
+chatclient : connect.o run_client.o
+	cc -o chatclient chatclient.c connect.o run_client.o
 
 connect.o : connect.h
 	cc -c connect.c
@@ -7,8 +7,6 @@ connect.o : connect.h
 run_client.o : constants.h run_client.h
 	cc -c run_client.c
 
-run_client_ec.o : constants.h run_client_ec.h
-	cc -c run_client_ec.c
-
 clean :
-	rm chatclient connect.o run_client.o run_client_ec.o
+	rm chatclient connect.o run_client.o
+

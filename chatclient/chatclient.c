@@ -11,9 +11,6 @@
 
 #include "connect.h"
 #include "run_client.h"
-#include "run_client_ec.h"
-
-char * ec_flag = "--extra-credit";
 
 int main(int argc, char **argv)
 {
@@ -41,14 +38,7 @@ int main(int argc, char **argv)
   // Connect to the chat server and run the client. Optionally run the extra
   // credit client if the flag has been passed.
   int sockfd = chatserve_connect(argv[1], argv[2]);
-  if (argc == 4 && strcmp(argv[3], ec_flag) == 0)
-  {
-    run_client_ec(sockfd, username, uname_size);
-  } 
-  else 
-  {
-    run_client(sockfd, username, uname_size);
-  }
+  run_client(sockfd, username, uname_size);
 
   // Clean up and exit.
   free(username);

@@ -21,18 +21,3 @@ To compile and run:
     make
     ./chatclient HOST PORT
 
-
-# EXTRA CREDIT
-
-TODO: details of extra credit
-
-* detail1
-* detail2
-* detail3
-
-To run both the client and server in "extra credit" mode, append `--extra-credit` 
-to both the server and client. (_Remember: both!_)
-
-    ./chatserve.py PORT --extra-credit
-    ./chatclient HOST PORT --extra-credit
-
